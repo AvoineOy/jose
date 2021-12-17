@@ -186,7 +186,7 @@ final class KeyConverter
         if(!preg_match('#(-+[^-]+-+)([^-]+)(-+[^-]+-+)#', $pem, $matches)) {
             throw new \InvalidArgumentException('Unsupported key type');
         }
-        preg_match_all('#(-.*-)#', $pem, $matches, PREG_PATTERN_ORDER);
+
         $ciphertext = preg_replace('#\s#', '', $matches[2]);
 
         $pem = $matches[1].PHP_EOL;
