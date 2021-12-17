@@ -183,12 +183,15 @@ final class KeyConverter
      */
     private static function sanitizePEM(&$pem)
     {
+        if(!preg_match('#(-+[^-]+-+)([^-]+)(-+[^-]+-+)#', $pem, $matches)) {
+            throw new \InvalidArgumentException('Unsupported key type');
+        }
         preg_match_all('#(-.*-)#', $pem, $matches, PREG_PATTERN_ORDER);
-        $ciphertext = preg_replace('#-.*-|\r|\n| #', '', $pem);
+        $ciphertext = preg_replace('#\s#', '', $matches[2]);
 
-        $pem = $matches[0][0].PHP_EOL;
+        $pem = $matches[1].PHP_EOL;
         $pem .= chunk_split($ciphertext, 64, PHP_EOL);
-        $pem .= $matches[0][1].PHP_EOL;
+        $pem .= $matches[1].PHP_EOL;
     }
 
     /**
