@@ -191,7 +191,7 @@ final class KeyConverter
 
         $pem = $matches[1].PHP_EOL;
         $pem .= chunk_split($ciphertext, 64, PHP_EOL);
-        $pem .= $matches[1].PHP_EOL;
+        $pem .= $matches[3].PHP_EOL;
     }
 
     /**
